@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anna Kovarsky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; }
+
+    :root {
+      --navy:       #0e1f3d;
+      --navy-mid:   #162a54;
+      --navy-soft:  #1d3568;
+      --gold:       #c9922a;
+      --gold-light: #e8b84b;
+      --gold-pale:  #f5dfa0;
+      --gold-dark:  #8a6419;
+      --cream:      #faf8f3;
+      --cream-mid:  #ede8de;
+      --sand:       #d6cfc0;
+      --ink:        #1a130a;
+      --ink-mid:    #3d3022;
+      --white:      #ffffff;
+      --nav-h:      72px;
+      --ease:       cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--ink);
+      background: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ─── UTILITY ─── */
+    .tag {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3.6rem);
+      font-weight: 400;
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+    .h2 em { font-style: italic; color: var(--gold); }
+    .rule {
+      width: 56px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      margin-bottom: 32px;
+      border-radius: 2px;
+    }
+    .body-p {
+      font-size: 1.08rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--ink-mid);
+      max-width: 640px;
+    }
+    .body-p + .body-p { margin-top: 14px; }
+
+    .section { padding: clamp(70px, 10vw, 120px) clamp(20px, 6vw, 80px); }
+    .inner   { max-width: 1200px; margin: 0 auto; }
+
+    /* ─── ANIMATION BASE ─── */
+    .anim {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+    .anim.from-left  { transform: translateX(-40px); }
+    .anim.from-right { transform: translateX(40px); }
+    .anim.scale-in   { transform: scale(0.94); }
+    .anim.in { opacity: 1; transform: translate(0) scale(1); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.22s; }
+    .delay-3 { transition-delay: 0.34s; }
+    .delay-4 { transition-delay: 0.46s; }
+    .delay-5 { transition-delay: 0.58s; }
+
+    /* ─── NAV ─── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 60px);
+      background: transparent;
+      transition: background 0.5s, box-shadow 0.5s;
+    }
+    #nav.solid {
+      background: rgba(14, 31, 61, 0.97);
+      box-shadow: 0 1px 0 rgba(201,146,42,0.2);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      transition: color 0.3s;
+    }
+    .nav-logo:hover { color: var(--gold-light); }
+    .nav-links {
+      display: flex;
+      gap: clamp(18px, 3vw, 40px);
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      position: relative;
+      padding-bottom: 3px;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold-light);
+      transition: width 0.35s var(--ease);
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+      z-index: 300;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.35s var(--ease), opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Drawer */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(14,31,61,0.98);
+      z-index: 150;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease);
+    }
+    #mobile-menu.open { opacity: 1; pointer-events: all; }
+    #mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2.2rem;
+      color: var(--white);
+      transition: color 0.3s;
+    }
+    #mobile-menu a:hover { color: var(--gold-light); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: calc(var(--nav-h) + 60px) 24px 100px;
+      background: linear-gradient(150deg, #0a1628 0%, #0e1f3d 40%, #1a2f58 70%, #0e1f3d 100%);
+    }
+    .hero-glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-glow-1 {
+      width: 700px; height: 700px;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-55%);
+      background: radial-gradient(circle, rgba(201,146,42,0.16) 0%, transparent 70%);
+      animation: glow1 6s ease-in-out infinite;
+    }
+    @keyframes glow1 {
+      0%,100% { opacity: 0.7; transform: translate(-50%,-55%) scale(1); }
+      50%      { opacity: 1;   transform: translate(-50%,-55%) scale(1.1); }
+    }
+    .hero-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(201,146,42,0.1);
+      pointer-events: none;
+    }
+    .hero-ring:nth-child(3) { width: 500px;  height: 500px;  top:50%; left:50%; margin:-250px 0 0 -250px; animation: ringFade 9s 0s infinite; }
+    .hero-ring:nth-child(4) { width: 750px;  height: 750px;  top:50%; left:50%; margin:-375px 0 0 -375px; animation: ringFade 9s 3s infinite; }
+    .hero-ring:nth-child(5) { width: 1050px; height: 1050px; top:50%; left:50%; margin:-525px 0 0 -525px; animation: ringFade 9s 6s infinite; }
+    @keyframes ringFade {
+      0%   { opacity: 0; }
+      25%  { opacity: 0.8; }
+      75%  { opacity: 0.3; }
+      100% { opacity: 0; }
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(0.58rem, 1.5vw, 0.7rem);
+      font-weight: 500;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: hFadeUp 1s 0.2s var(--ease) forwards;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      font-weight: 400;
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: hFadeUp 1s 0.4s var(--ease) forwards;
+    }
+    .hero-name .italic { font-style: italic; color: var(--gold-light); }
+    .hero-divider {
+      width: 100px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 28px;
+      opacity: 0;
+      animation: hFadeUp 1s 0.6s var(--ease) forwards;
+    }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.45rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.08em;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: hFadeUp 1s 0.75s var(--ease) forwards;
+    }
+    .hero-cta {
+      display: inline-block;
+      padding: 16px 46px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--navy);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      opacity: 0;
+      animation: hFadeUp 1s 0.9s var(--ease) forwards;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s;
+      box-shadow: 0 6px 30px rgba(201,146,42,0.35);
+    }
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 44px rgba(201,146,42,0.5);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: hFadeUp 1s 1.2s var(--ease) forwards;
+    }
+    .hero-scroll span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .scroll-bar {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(201,146,42,0.8), transparent);
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform: scaleY(1); opacity: 0.6; }
+      50%      { transform: scaleY(1.25); opacity: 1; }
+    }
+    @keyframes hFadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--cream);
+      border-top: 4px solid var(--gold-light);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 7vw, 100px);
+      align-items: center;
+    }
+    .photo-wrap { position: relative; }
+    .photo-border {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      overflow: visible;
+    }
+    .photo-border::before {
+      content: '';
+      position: absolute;
+      top: -12px; left: -12px; right: 12px; bottom: 12px;
+      border: 2px solid var(--gold);
+      border-radius: 2px;
+      z-index: 0;
+      transition: transform 0.5s var(--ease);
+    }
+    .photo-border:hover::before { transform: translate(-5px, -5px); }
+    .photo-border img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 2px;
+      transition: transform 0.6s var(--ease);
+    }
+    .photo-border:hover img { transform: scale(1.02); }
+    .photo-caption {
+      text-align: center;
+      margin-top: 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--gold-dark);
+      letter-spacing: 0.06em;
+    }
+    .about-text .h2 { color: var(--navy); }
+    .award-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 12px 22px;
+      background: var(--navy);
+      border-radius: 3px;
+      color: var(--gold-light);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: 0 6px 24px rgba(14,31,61,0.18);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s;
+    }
+    .award-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(14,31,61,0.26);
+    }
+
+    /* ─── LEGACY ─── */
+    #legacy {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 100%);
+      color: var(--white);
+    }
+    #legacy .tag { color: var(--gold-light); }
+    #legacy .h2  { color: var(--white); }
+    #legacy .h2 em { color: var(--gold-light); }
+    #legacy .body-p { color: rgba(255,255,255,0.72); max-width: 720px; }
+
+    .blockquote {
+      border-left: 3px solid var(--gold);
+      padding: 20px 0 20px 32px;
+      margin: 44px 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      color: var(--gold-pale);
+      line-height: 1.55;
+      max-width: 750px;
+    }
+
+    .scholarship-card {
+      margin-top: 60px;
+      padding: clamp(28px, 5vw, 52px);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,146,42,0.35);
+      border-radius: 4px;
+      max-width: 800px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s, box-shadow 0.4s, transform 0.4s var(--ease);
+    }
+    .scholarship-card:hover {
+      background: rgba(255,255,255,0.09);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+      transform: translateY(-4px);
+    }
+    .scholarship-card::before {
+      content: '✦';
+      position: absolute;
+      top: 20px; right: 28px;
+      font-size: 2.5rem;
+      color: rgba(201,146,42,0.15);
+    }
+    .scholarship-card .card-tag {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+    .scholarship-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .scholarship-card .amount {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      color: var(--gold-light);
+      line-height: 1;
+      margin: 22px 0 12px;
+      text-shadow: 0 0 40px rgba(232,184,75,0.35);
+    }
+    .scholarship-card .body-p { color: rgba(255,255,255,0.65); }
+
+    /* ─── PRODUCTIONS ─── */
+    #productions { background: var(--cream); }
+    #productions .h2 { color: var(--navy); }
+
+    .production-card {
+      margin-top: 52px;
+      padding: clamp(28px, 5vw, 56px);
+      background: var(--white);
+      border-radius: 4px;
+      box-shadow: 0 4px 40px rgba(14,31,61,0.08);
+      border-top: 4px solid var(--gold);
+      position: relative;
+      transition: transform 0.4s var(--ease), box-shadow 0.4s;
+    }
+    .production-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 60px rgba(14,31,61,0.14);
+    }
+    .production-card .open-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem;
+      color: rgba(201,146,42,0.12);
+      line-height: 1;
+      position: absolute;
+      top: 12px; left: 28px;
+    }
+    .production-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.3rem, 3vw, 2.1rem);
+      color: var(--navy);
+      margin-bottom: 18px;
+    }
+    .venue-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .venue-tag {
+      padding: 8px 18px;
+      background: var(--navy);
+      color: var(--gold-light);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.63rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .venue-tag:hover {
+      background: var(--navy-soft);
+      transform: translateY(-2px);
+    }
+
+    /* ─── COMMUNITY ─── */
+    #community { background: var(--navy); }
+    #community .tag { color: var(--gold-light); }
+    #community .h2 { color: var(--white); }
+    #community .h2 em { color: var(--gold-light); }
+    .community-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(36px, 6vw, 80px);
+      align-items: start;
+    }
+    .event-list { list-style: none; margin-top: 8px; }
+    .event-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.78);
+      transition: color 0.3s, padding-left 0.3s;
+    }
+    .event-list li:hover { color: var(--gold-light); padding-left: 6px; }
+    .event-list li .dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 10px;
+    }
+    .comp-box {
+      padding: clamp(24px, 4vw, 44px);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,146,42,0.25);
+      border-radius: 4px;
+    }
+    .comp-box h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      margin-bottom: 14px;
+    }
+    .comp-box .body-p { color: rgba(255,255,255,0.62); margin-bottom: 22px; }
+    .comp-tags { display: flex; flex-direction: column; gap: 10px; }
+    .comp-tag {
+      padding: 12px 18px;
+      background: rgba(255,255,255,0.04);
+      border-left: 3px solid var(--gold);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      transition: background 0.3s, color 0.3s, padding-left 0.3s;
+    }
+    .comp-tag:hover {
+      background: rgba(201,146,42,0.12);
+      color: var(--gold-light);
+      padding-left: 24px;
+    }
+
+    /* ─── PHILANTHROPY ─── */
+    #philanthropy { background: var(--cream-mid); }
+    #philanthropy .h2 { color: var(--navy); }
+    .phil-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .phil-inner .rule { margin: 0 auto 32px; }
+    .phil-inner .body-p { margin: 0 auto; text-align: left; }
+    .sick-kids-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: clamp(28px, 5vw, 52px) clamp(24px, 8vw, 72px);
+      background: var(--navy);
+      border-radius: 4px;
+      margin: 48px auto;
+      max-width: 600px;
+      box-shadow: 0 12px 50px rgba(14,31,61,0.2);
+      transition: transform 0.4s var(--ease), box-shadow 0.4s;
+    }
+    .sick-kids-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(14,31,61,0.3);
+    }
+    .sick-kids-card .label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .sick-kids-card .name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--white);
+    }
+    .sick-kids-card .desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(201,146,42,0.2);
+      padding: clamp(48px, 8vw, 80px) clamp(20px, 6vw, 80px) 36px;
+    }
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: clamp(36px, 6vw, 72px);
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-brand .logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--gold-light);
+      margin-bottom: 14px;
+    }
+    .footer-brand p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+    }
+    .footer-col h5 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li {
+      padding: 5px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.97rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+    }
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.55);
+      transition: color 0.3s;
+    }
+    .footer-col ul li a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 28px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-bottom p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+    .footer-emblem { color: rgba(201,146,42,0.3); font-size: 1.4rem; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .about-grid      { grid-template-columns: 1fr; }
+      .community-grid  { grid-template-columns: 1fr; }
+      .footer-grid     { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links       { display: none; }
+      .hamburger       { display: flex; }
+      #mobile-menu     { display: flex; }
+      .photo-border::before { top:-8px; left:-8px; right:8px; bottom:8px; }
+    }
+    @media (max-width: 560px) {
+      .hero-name       { font-size: clamp(3.4rem, 18vw, 5rem); }
+      .blockquote      { padding-left: 20px; font-size: 1.2rem; }
+      .scholarship-card,
+      .comp-box,
+      .production-card { padding: 24px; }
+      .hero-scroll     { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── MOBILE MENU ─── -->
+<div id="mobile-menu">
+  <a href="#about">About</a>
+  <a href="#legacy">Legacy</a>
+  <a href="#productions">Productions</a>
+  <a href="#community">Community</a>
+  <a href="#philanthropy">Philanthropy</a>
+</div>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">Anna Kovarsky</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#legacy">Legacy</a></li>
+    <li><a href="#productions">Productions</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#philanthropy">Philanthropy</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Visionary Leader &nbsp;✦&nbsp; Producer &nbsp;✦&nbsp; Philanthropist</p>
+    <h1 class="hero-name">Anna<br/><span class="italic">Kovarsky</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Bayview School of Ballet &nbsp;·&nbsp; Innovative Ballet Theatre</p>
+    <a href="#about" class="hero-cta">Discover Her Story</a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about" class="section">
+  <div class="inner about-grid">
+
+    <div class="photo-wrap anim from-left">
+      <div class="photo-border">
+        <!-- Place owner.jpg in the same folder as index.html on GitHub -->
+        <img src="owner.jpg" alt="Anna Kovarsky — Owner & Director"/>
+      </div>
+      <p class="photo-caption">Anna Kovarsky — Owner &amp; Director</p>
+    </div>
+
+    <div class="about-text">
+      <p class="tag anim delay-1">Leadership &amp; Vision</p>
+      <h2 class="h2 anim delay-2">Anna <em>Kovarsky</em></h2>
+      <div class="rule anim delay-2"></div>
+      <p class="body-p anim delay-3">
+        Anna Kovarsky is an accomplished ballet producer, visionary leader, and philanthropist with a profound commitment to advancing the art of dance in Canada. With over 25 years of experience, she is the owner and director of Bayview School of Ballet — one of Canada's leading ballet institutions.
+      </p>
+      <p class="body-p anim delay-3">
+        As the daughter of the late Bella Kovarsky who founded the school, Anna inherited a deep love for the art form and an unwavering dedication to its highest standards. She is the driving force behind every aspect of the school's direction — from curriculum oversight and performance opportunities to community outreach and artistic partnerships.
+      </p>
+      <div class="award-pill anim delay-4">
+        <span>🍁</span>
+        <span>Canada 150 Heritage Pin Recipient &nbsp;·&nbsp; Mel Lastman Square</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── LEGACY ─── -->
+<section id="legacy" class="section">
+  <div class="inner">
+    <p class="tag anim">Foundation &amp; Heritage</p>
+    <h2 class="h2 anim delay-1">The <em>Legacy</em> of Bella Kovarsky</h2>
+    <div class="rule anim delay-1"></div>
+
+    <div class="blockquote anim delay-2">
+      "She built Bayview School of Ballet with a commitment to excellence — an environment where students were held to high standards while being nurtured with care and intention."
+    </div>
+
+    <p class="body-p anim delay-2">
+      Bella Kovarsky was a passionate and highly respected figure in the ballet community, known for her dedication to discipline, structure, and classical training. Her influence shaped not only the school's curriculum but its entire culture of professionalism and deep respect for the art form. Her vision laid the foundation for everything the school represents today, and Anna continues to honour that foundation while expanding its reach through new initiatives, performances, and community involvement.
+    </p>
+
+    <div class="scholarship-card anim delay-3">
+      <p class="card-tag">Annual Award</p>
+      <h3>The Bella Kovarsky Scholarship</h3>
+      <p class="body-p">
+        Awarded each year to a deserving student who exemplifies dedication, artistic integrity, and the pursuit of excellence — values that Bella herself embodied throughout her life.
+      </p>
+      <div class="amount">$15,000</div>
+      <p class="body-p" style="font-size:1rem; margin-top:4px;">
+        This scholarship allows the recipient to pursue training at the highest level within the school, reflecting Bella's belief in opportunity and the importance of supporting the next generation of dancers.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRODUCTIONS ─── -->
+<section id="productions" class="section">
+  <div class="inner">
+    <p class="tag anim">Innovative Ballet Theatre</p>
+    <h2 class="h2 anim delay-1">World-Class <em>Productions</em></h2>
+    <div class="rule anim delay-1"></div>
+    <p class="body-p anim delay-2">
+      Anna's vision extends beyond the studio through her creation of Innovative Ballet Theatre — a company dedicated to producing high-calibre performances that unite internationally renowned artists on one stage. These productions blend classical ballet with contemporary and theatrical elements, offering audiences a sophisticated and immersive experience.
+    </p>
+
+    <div class="production-card anim delay-3">
+      <div class="open-quote">"</div>
+      <h3>The Greatest Love of Dance: A Night with the Stars</h3>
+      <p class="body-p">
+        Anna's signature production has been hosted twice, each surpassing the last in scale and cultural impact. The showcase brings together dancers from diverse backgrounds on a single prestigious stage — a celebration of ballet that attracts broad audiences and provides a platform for both established artists and emerging talent.
+      </p>
+      <div class="venue-list">
+        <span class="venue-tag">Meridian Arts Centre</span>
+        <span class="venue-tag">Richmond Hill Centre for the Arts</span>
+        <span class="venue-tag">Chinese Cultural Centre</span>
+        <span class="venue-tag">Earl Haig Theatre</span>
+        <span class="venue-tag">Northview Theatre</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMMUNITY ─── -->
+<section id="community" class="section">
+  <div class="inner community-grid">
+
+    <div>
+      <p class="tag anim">Outreach &amp; Engagement</p>
+      <h2 class="h2 anim delay-1">Community <em>Presence</em></h2>
+      <div class="rule anim delay-1"></div>
+      <p class="body-p anim delay-2" style="color:rgba(255,255,255,0.7);">
+        Anna has expanded Bayview School of Ballet's presence through student performances at local cultural events, introducing ballet to broader audiences while giving young dancers invaluable stage experience.
+      </p>
+      <ul class="event-list">
+        <li class="anim delay-2"><div class="dot"></div>Taste of North York</li>
+        <li class="anim delay-3"><div class="dot"></div>Chinese New Year Celebrations</li>
+        <li class="anim delay-3"><div class="dot"></div>Dewily Festival</li>
+        <li class="anim delay-4"><div class="dot"></div>Toes for Dance</li>
+        <li class="anim delay-4"><div class="dot"></div>Mayor's Gala — Mayor's Evening for the Arts</li>
+        <li class="anim delay-5"><div class="dot"></div>Public &amp; private school fundraising initiatives</li>
+      </ul>
+    </div>
+
+    <div class="comp-box anim delay-2">
+      <h4>Prep Competitive Team</h4>
+      <p class="body-p">
+        The school's competitive team represents Bayview with professionalism and strong artistic presence at respected national and international competitions.
+      </p>
+      <div class="comp-tags">
+        <div class="comp-tag">YAGP</div>
+        <div class="comp-tag">On The Floor</div>
+        <div class="comp-tag">Global Dance Challenge</div>
+        <div class="comp-tag">Elite Dance Challenge</div>
+        <div class="comp-tag">CanDance</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── PHILANTHROPY ─── -->
+<section id="philanthropy" class="section">
+  <div class="inner phil-inner">
+    <p class="tag anim">Giving Back</p>
+    <h2 class="h2 anim delay-1">A Commitment to <em>Philanthropy</em></h2>
+    <div class="rule anim delay-1"></div>
+
+    <div class="sick-kids-card anim delay-2">
+      <span class="label">Charitable Partner</span>
+      <span class="name">SickKids Hospital</span>
+      <span class="desc">Showcases &amp; performances organized to raise meaningful funds through the arts</span>
+    </div>
+
+    <p class="body-p anim delay-3">
+      Anna Kovarsky's philanthropic spirit is inseparable from her artistic mission. She has organized and produced numerous benefit showcases in support of SickKids Hospital, using the power of ballet to raise meaningful funds for one of Canada's most vital institutions. Her generosity extends further through sustained support of public and private schools across the region, contributing to fundraising initiatives and community events that strengthen the cultural fabric of North York.
+    </p>
+    <p class="body-p anim delay-3" style="margin-top:14px;">
+      Bayview School of Ballet has been recognized multiple times as one of the leading ballet schools in North York, and Anna's impact as a cultural leader and community supporter has been highlighted in numerous Canadian publications and acknowledged by government officials across all levels.
+    </p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">Anna Kovarsky</div>
+      <p>Owner of Bayview School of Ballet &amp; founder of Innovative Ballet Theatre — preserving and expanding a distinguished legacy in the arts, rooted in the vision of Bella Kovarsky.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="#about">About Anna</a></li>
+        <li><a href="#legacy">Bella's Legacy</a></li>
+        <li><a href="#productions">Productions</a></li>
+        <li><a href="#community">Community</a></li>
+        <li><a href="#philanthropy">Philanthropy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Innovative Ballet Theatre</h5>
+      <ul>
+        <li>The Greatest Love of Dance</li>
+        <li>A Night with the Stars</li>
+        <li>Internationally Renowned Artists</li>
+        <li>Meridian Arts Centre &amp; more</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Anna Kovarsky &nbsp;·&nbsp; All Rights Reserved</p>
+    <div class="footer-emblem">✦</div>
+    <p>North York, Canada</p>
+  </div>
+</footer>
+
+<script>
+  /* ─── NAV SOLID ON SCROLL ─── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 50);
+  }, { passive: true });
+
+  /* ─── SMOOTH SCROLL WITH FIXED-NAV OFFSET ─── */
+  function smoothScrollTo(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const offset = nav.getBoundingClientRect().height;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href').slice(1);
+      if (!id) return;
+      e.preventDefault();
+      smoothScrollTo(id);
+      // Close mobile menu
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
+  /* ─── HAMBURGER / MOBILE MENU ─── */
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  /* ─── SCROLL REVEAL ─── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
