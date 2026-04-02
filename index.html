@@ -480,8 +480,27 @@
       font-weight: 300;
       color: var(--charcoal);
       transition: color 0.3s, padding-left 0.3s;
+      cursor: pointer;
     }
     .event-list li:hover { color: var(--black); padding-left: 6px; }
+    .event-item { display: flex; flex-direction: column; gap: 0; }
+    .event-name { font-weight: 600; color: inherit; }
+    .event-desc {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--mid-grey);
+      line-height: 1.5;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s var(--ease), opacity 0.4s var(--ease), margin-top 0.3s;
+      margin-top: 0;
+    }
+    .event-list li.open .event-desc {
+      max-height: 80px;
+      opacity: 1;
+      margin-top: 6px;
+    }
     .event-list li .dot {
       width: 6px; height: 6px;
       background: var(--black);
@@ -516,11 +535,31 @@
       text-transform: uppercase;
       color: var(--charcoal);
       transition: background 0.3s, color 0.3s, padding-left 0.3s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
-    .comp-tag:hover {
-      background: var(--black);
-      color: var(--white);
-      padding-left: 24px;
+    .comp-tag:hover { background: var(--off-white); color: var(--black); }
+    .comp-tag.open { background: var(--black); color: var(--white); padding-left: 24px; }
+    .comp-name { display: block; }
+    .comp-desc {
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      line-height: 1.5;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s var(--ease), opacity 0.4s var(--ease), margin-top 0.3s;
+      margin-top: 0;
+      color: rgba(255,255,255,0.75);
+    }
+    .comp-tag.open .comp-desc {
+      max-height: 80px;
+      opacity: 1;
+      margin-top: 6px;
     }
 
     /* ─── PHILANTHROPY ─── */
@@ -793,12 +832,12 @@
         Anna has expanded Bayview School of Ballet's presence through student performances at local cultural events, introducing ballet to broader audiences while giving young dancers invaluable stage experience.
       </p>
       <ul class="event-list">
-        <li class="anim delay-2"><div class="dot"></div>Taste of North York</li>
-        <li class="anim delay-3"><div class="dot"></div>Chinese New Year Celebrations</li>
-        <li class="anim delay-3"><div class="dot"></div>Dewily Festival</li>
-        <li class="anim delay-4"><div class="dot"></div>Toes for Dance</li>
-        <li class="anim delay-4"><div class="dot"></div>Mayor's Gala — Mayor's Evening for the Arts</li>
-        <li class="anim delay-5"><div class="dot"></div>Public &amp; private school fundraising initiatives</li>
+        <li class="anim delay-2"><div class="dot"></div><div class="event-item"><span class="event-name">Taste of North York</span><span class="event-desc">An annual outdoor community festival celebrating local food, culture, and entertainment in the heart of North York.</span></div></li>
+        <li class="anim delay-3"><div class="dot"></div><div class="event-item"><span class="event-name">Chinese New Year Celebrations</span><span class="event-desc">A vibrant cultural event honouring the Lunar New Year with traditional performances, music, and community gatherings.</span></div></li>
+        <li class="anim delay-3"><div class="dot"></div><div class="event-item"><span class="event-name">Dewily Festival</span><span class="event-desc">A local arts and culture festival showcasing performances and creative expression from North York's diverse communities.</span></div></li>
+        <li class="anim delay-4"><div class="dot"></div><div class="event-item"><span class="event-name">Toes for Dance</span><span class="event-desc">A community dance showcase bringing together students and artists to celebrate the joy of movement and performance.</span></div></li>
+        <li class="anim delay-4"><div class="dot"></div><div class="event-item"><span class="event-name">Mayor's Gala — Mayor's Evening for the Arts</span><span class="event-desc">A prestigious annual gala hosted by the Mayor of Toronto recognizing outstanding contributions to the arts in the city.</span></div></li>
+        <li class="anim delay-5"><div class="dot"></div><div class="event-item"><span class="event-name">Public &amp; private school fundraising initiatives</span><span class="event-desc">Student performances organized to support local schools, raising funds and bringing the art of ballet to new audiences.</span></div></li>
       </ul>
     </div>
 
@@ -808,11 +847,11 @@
         The school's competitive team represents Bayview with professionalism and strong artistic presence at respected national and international competitions.
       </p>
       <div class="comp-tags">
-        <div class="comp-tag">YAGP</div>
-        <div class="comp-tag">On The Floor</div>
-        <div class="comp-tag">Global Dance Challenge</div>
-        <div class="comp-tag">Elite Dance Challenge</div>
-        <div class="comp-tag">CanDance</div>
+        <div class="comp-tag"><span class="comp-name">YAGP</span><span class="comp-desc">Youth America Grand Prix — one of the world's most prestigious student ballet competitions, connecting dancers with top companies and schools.</span></div>
+        <div class="comp-tag"><span class="comp-name">On The Floor</span><span class="comp-desc">A high-energy Canadian dance competition showcasing talent across multiple styles in a professional festival setting.</span></div>
+        <div class="comp-tag"><span class="comp-name">Global Dance Challenge</span><span class="comp-desc">An international dance competition welcoming performers from around the world to compete across a wide range of disciplines.</span></div>
+        <div class="comp-tag"><span class="comp-name">Elite Dance Challenge</span><span class="comp-desc">A respected North American competition circuit focused on elevating young dancers through adjudicated performance opportunities.</span></div>
+        <div class="comp-tag"><span class="comp-name">CanDance</span><span class="comp-desc">A celebrated Canadian dance competition dedicated to recognizing excellence and artistry in dancers of all ages and levels.</span></div>
       </div>
     </div>
 
@@ -905,6 +944,22 @@
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.comp-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const wasOpen = tag.classList.contains('open');
+      document.querySelectorAll('.comp-tag').forEach(el => el.classList.remove('open'));
+      if (!wasOpen) tag.classList.add('open');
+    });
+  });
+
+  document.querySelectorAll('.event-list li').forEach(li => {
+    li.addEventListener('click', () => {
+      const wasOpen = li.classList.contains('open');
+      document.querySelectorAll('.event-list li').forEach(el => el.classList.remove('open'));
+      if (!wasOpen) li.classList.add('open');
+    });
   });
 
   const observer = new IntersectionObserver(entries => {
