@@ -609,6 +609,76 @@
       text-align: center;
     }
 
+    .inline-link {
+      color: var(--black);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity 0.2s;
+    }
+    .inline-link:hover { opacity: 0.6; }
+    #philanthropy .inline-link { color: var(--charcoal); }
+
+    .gala-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 36px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .gala-card {
+      background: var(--white);
+      border: 1px solid var(--light-grey);
+      border-top: 3px solid var(--black);
+      border-radius: 2px;
+      padding: 28px 24px;
+      text-align: left;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s;
+    }
+    .gala-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+    .gala-icon {
+      font-size: 1rem;
+      color: var(--light-grey);
+      margin-bottom: 12px;
+    }
+    .gala-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+      margin-bottom: 8px;
+    }
+    .gala-venue {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+    .gala-location {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--mid-grey);
+      margin-bottom: 14px;
+    }
+    .gala-desc {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--charcoal);
+      line-height: 1.6;
+    }
+    @media (max-width: 560px) {
+      .gala-grid { grid-template-columns: 1fr; }
+    }
+
     /* ─── FOOTER ─── */
     footer {
       background: var(--black);
@@ -875,6 +945,27 @@
       Anna Kovarsky's philanthropic spirit is inseparable from her artistic mission. She has organized and produced numerous benefit showcases in support of SickKids Hospital, using the power of ballet to raise meaningful funds for one of Canada's most vital institutions. Her generosity extends further through sustained support of public and private schools across the region, contributing to fundraising initiatives and community events that strengthen the cultural fabric of North York.
     </p>
     <p class="body-p anim delay-3" style="margin-top:14px;">
+      Anna Kovarsky, owner of Bayview School of Ballet, has demonstrated a strong commitment to philanthropy through the organization of distinguished fundraising events that unite the arts and the community. Among her most notable initiatives are two major fundraising galas held in Toronto. The first took place at the elegant Palais Royale, located in downtown Toronto, where guests gathered for an evening of performance, culture, and charitable giving. The second was a beautifully curated Winter Gala at the Ed Weston Hotel, further continuing her mission of supporting artistic development and community engagement. Each event brought together families, supporters, and distinguished guests in celebration of dance and the arts, while raising meaningful funds in support of Bayview School of Ballet and charitable causes. Through these initiatives, Anna continues to uphold a legacy of generosity, community involvement, and a deep dedication to enriching the cultural landscape.
+    </p>
+
+    <div class="gala-grid anim delay-4">
+      <div class="gala-card">
+        <div class="gala-icon">✦</div>
+        <div class="gala-label">Fundraising Gala I</div>
+        <div class="gala-venue">Palais Royale</div>
+        <div class="gala-location">Downtown Toronto</div>
+        <p class="gala-desc">An elegant evening of performance, culture, and charitable giving in one of Toronto's most storied historic venues.</p>
+      </div>
+      <div class="gala-card">
+        <div class="gala-icon">✦</div>
+        <div class="gala-label">Winter Gala II</div>
+        <div class="gala-venue">Ed Weston Hotel</div>
+        <div class="gala-location">Toronto</div>
+        <p class="gala-desc">A beautifully curated winter celebration uniting the community through the arts and a shared commitment to giving back.</p>
+      </div>
+    </div>
+
+    <p class="body-p anim delay-4" style="margin-top:32px;">
       Bayview School of Ballet has been recognized multiple times as one of the leading ballet schools in North York, and Anna's impact as a cultural leader and community supporter has been highlighted in numerous Canadian publications and acknowledged by government officials across all levels.
     </p>
   </div>
@@ -902,8 +993,11 @@
       <ul>
         <li>The Greatest Love of Dance</li>
         <li>A Night with the Stars</li>
-        <li>Internationally Renowned Artists</li>
-        <li>Meridian Arts Centre &amp; more</li>
+        <li>Meridian Arts Centre</li>
+        <li>Richmond Hill Centre for the Arts</li>
+        <li>Palais Royale</li>
+        <li><a href="https://www.sickkids.ca" target="_blank">SickKids Hospital</a></li>
+        <li><a href="https://www.bayviewballet.com" target="_blank">Bayview School of Ballet</a></li>
       </ul>
     </div>
   </div>
