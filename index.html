@@ -343,34 +343,37 @@
       gap: clamp(40px, 7vw, 100px);
       align-items: center;
     }
-    .photo-wrap { position: relative; }
+    /* ─── UPDATED PHOTO SECTION ─── */
+    .photo-wrap { 
+      position: relative; 
+      max-width: 450px; /* Limits the size so it doesn't get too huge */
+      margin: 0 auto; 
+    }
+
     .photo-border {
       position: relative;
-      display: inline-block;
-      width: 100%;
-      overflow: visible;
-    }
-    .photo-border::before {
-      content: '';
-      position: absolute;
-      top: -12px; left: -12px; right: 12px; bottom: 12px;
-      border: 2px solid var(--gold);
-      border-radius: 2px;
-      z-index: 0;
+      display: block;
+      overflow: hidden;
+      /* This creates the gold frame directly around the container */
+      border: 1px solid var(--gold); 
+      padding: 12px; /* This creates the "matting" gap between the frame and the photo */
+      background: var(--cream);
       transition: transform 0.5s var(--ease);
     }
-    .photo-border:hover::before { transform: translate(-5px, -5px); }
+
     .photo-border img {
-      position: relative;
-      z-index: 1;
+      display: block;
       width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      object-position: top center;
-      border-radius: 2px;
+      height: auto;
+      /* Ensures the photo stays crisp and fits the internal space */
+      object-fit: cover; 
       transition: transform 0.6s var(--ease);
     }
-    .photo-border:hover img { transform: scale(1.02); }
+
+    /* Simple hover effect for the whole framed unit */
+    .photo-border:hover img { 
+      transform: scale(1.03); 
+    }
     .photo-caption {
       text-align: center;
       margin-top: 18px;
