@@ -343,10 +343,10 @@
       gap: clamp(40px, 7vw, 100px);
       align-items: center;
     }
-    /* ─── UPDATED PHOTO SECTION ─── */
+    /* ─── PHOTO SECTION (DESKTOP) ─── */
     .photo-wrap { 
       position: relative; 
-      max-width: 450px; /* Limits the size so it doesn't get too huge */
+      max-width: 450px; 
       margin: 0 auto; 
     }
 
@@ -354,9 +354,8 @@
       position: relative;
       display: block;
       overflow: hidden;
-      /* This creates the gold frame directly around the container */
       border: 1px solid var(--gold); 
-      padding: 12px; /* This creates the "matting" gap between the frame and the photo */
+      padding: 12px; 
       background: var(--cream);
       transition: transform 0.5s var(--ease);
     }
@@ -365,9 +364,22 @@
       display: block;
       width: 100%;
       height: auto;
-      /* Ensures the photo stays crisp and fits the internal space */
       object-fit: cover; 
       transition: transform 0.6s var(--ease);
+    }
+
+    /* ─── PHOTO SECTION (MOBILE FIX) ─── */
+    /* This triggers when the screen width is 860px or less */
+    @media (max-width: 860px) {
+      .photo-wrap {
+        width: 90%;       /* Makes it fit nicely on phone screens */
+        max-width: 320px; /* Prevents it from looking too bulky on tall phones */
+        margin-bottom: 30px; 
+      }
+      
+      .photo-border {
+        padding: 8px;     /* Slightly thinner matting for smaller screens */
+      }
     }
 
     /* Simple hover effect for the whole framed unit */
